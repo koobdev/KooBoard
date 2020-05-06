@@ -8,7 +8,7 @@ public interface IMemberDAO {
 	
 	int insert(MemberVO member);
 	
-	int update(MemberVO member, MemberVO memSession);
+	int update(MemberVO member);
 	
-	int delete(MemberVO memberSession);
+	int delete(MemberVO member);
 }

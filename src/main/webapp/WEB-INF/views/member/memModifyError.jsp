@@ -3,11 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-	<title>Login Success</title>
 </head>
 <body>
 <script>
-	alert("회원정보 수정 실패. 확인 후 다시 시도하세요.");
+	alert("회원정보 수정 실패. 아이디 확인 후 다시 시도하세요.");
 	window.history.back();
 </script>
 </body>

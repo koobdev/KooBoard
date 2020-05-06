@@ -109,11 +109,12 @@ public class BoardController {
 	public ModelAndView writeBoard(BoardVO board, HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView();
-		HttpSession session = request.getSession();
+		/*HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String writer = memberVO.getMemId();
 		
-		BoardVO result = b_service.write(board, writer);
+		BoardVO result = b_service.write(board, writer);*/
+		BoardVO result = b_service.write(board);
 		BoardVO boardVO = b_service.view(result.getB_index());
 		
 		mav.addObject("view", boardVO);
@@ -131,11 +132,11 @@ public class BoardController {
 		BoardVO boardVO = b_service.simpleRead(index);
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String writer = memberVO.getMemId();
-		System.out.println(writer);
+		String sessionId = memberVO.getMemId();
+		System.out.println(sessionId);
 		System.out.println(boardVO.getB_memId());
 		
-		if(boardVO.getB_memId().equals(writer)) {
+		if(boardVO.getB_memId().equals(sessionId)) {
 			model.addAttribute("correctView", boardVO);
 			return "/board/correct";
 		}else {
@@ -149,15 +150,11 @@ public class BoardController {
 	public ModelAndView correctBoard(BoardVO board, HttpServletRequest request, ReplyPageCriteria pc) {
 		
 		ModelAndView mav = new ModelAndView();
-		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String writer = memberVO.getMemId();
-		int result = b_service.correct(board, writer);
+		int result = b_service.correct(board);
 		if(result != 1) System.out.println("correct Failed");
 		
 		BoardVO boardVO = b_service.view(board.getB_index());
 				
-		//�Խñ� �����ٶ� ��۵� ���� ������ (list �������� ��� ����� �����־����)
 		List<ReplyVO> list = r_service.listAll(boardVO.getB_index(), pc);
 		int listCnt = list.size();
 		

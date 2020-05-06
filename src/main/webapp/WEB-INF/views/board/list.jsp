@@ -10,24 +10,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%String cp = request.getContextPath(); %>
 <!-- 부트스트랩3 -->
-<link rel="stylesheet" href="<%=cp%>/resources/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="<%=cp%>/resources/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 <div class="container text-center">
-
 	<section>
 	
 	<h2> 글 목록 </h2>
 	<div class="text-right">
 		<form>
-			<%
-				MemberVO member = (MemberVO)session.getAttribute("member");
-				String sessionId = member.getMemId();
-			%>
-			<%=sessionId%>님 &nbsp;&nbsp;<span class="bar">|</span> &nbsp;&nbsp;
+			<p>${member.memId}님</p> &nbsp;&nbsp;<span class="bar">|</span> &nbsp;&nbsp;
 			<button onclick="location.href='writeForm'" type="button" class="btn btn-success"> 글 작성 </button>
 			<button onclick="location.href='openList'" type="button" class="btn btn-primary"> 글 목록 </button>
 			<span class="bar">|</span>

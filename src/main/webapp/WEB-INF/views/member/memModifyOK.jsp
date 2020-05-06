@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	var cp = "<%=cp%>";
 	alert("회원정보 수정 성공");
-	window.location.href = cp + "/memLoginForm"
+	window.location.href = cp + "/"
 </script>
 </body>
 </html>

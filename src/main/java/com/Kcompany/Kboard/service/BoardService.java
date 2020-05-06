@@ -7,60 +7,60 @@ import org.springframework.stereotype.Service;
 
 import com.Kcompany.Kboard.common.paging.BoardPageCriteria;
 import com.Kcompany.Kboard.dao.BoardDAO;
+import com.Kcompany.Kboard.dao.ReplyDAO;
 import com.Kcompany.Kboard.vo.BoardVO;
 
 @Service
-public class BoardService implements IBoardService{
-
+public class BoardService{
+	
+	
 	@Autowired
-	BoardDAO dao;
+	private BoardDAO dao;
+	
+	@Autowired
+	private ReplyDAO dao2;
 	
 	
 	public List<BoardVO> listAll(BoardPageCriteria pc){
 		List<BoardVO> list = dao.list(pc);
-		
 		return list;
 	}
 	
 	
 	public int totalCount() {
-
 		int result = dao.total();
 		return result;
 	}
 	
 	
-	//view 하면 무조건 조회수가 같이 올라가게...!!!
 	public BoardVO view(int index) {
-		
 		BoardVO boardVO = null;
 		int result = 0;
 		
-		// 지금 누른 게시판 글 을 가지고 오고, 
 		boardVO = dao.read(index);
 		
-		// 지금 누른 게시판 글의 조회수를 늘린다.
 		result = dao.hitCnt(boardVO);
 		if(result != 1) {
 			System.out.println("BoardService : view() Error!!!");
 		}
-		
 		return boardVO;
 	}
 	
 	
 	
 	public BoardVO simpleRead(int index) {
-		
 		BoardVO boardVO = dao.read(index);
 		return boardVO;
 	}
 	
 	
-	public BoardVO write(BoardVO board, String writer) {
+	public BoardVO write(BoardVO board) {
 		
 		BoardVO boardVO = null;
-		int result = dao.insert(board, writer);
+		int recindex = dao.recentIndex();
+		board.setB_index(++recindex);
+		int result = dao.insert(board);
+		
 		if(result == 0) {
 			System.out.println("BoardService : write() Error!!");
 		}else {
@@ -71,9 +71,8 @@ public class BoardService implements IBoardService{
 	}
 	
 	
-	public int correct(BoardVO board, String writer) {
-		
-		int result = dao.update(board, writer);
+	public int correct(BoardVO board) {
+		int result = dao.update(board);
 		if(result != 1) {
 			System.out.println("BoardService : correct() Error!!");
 		}
@@ -82,15 +81,16 @@ public class BoardService implements IBoardService{
 	
 	
 	public void delete(int b_index) {
+		
+		int forein = dao2.deleteBoard(b_index);
 		int result = dao.delete(b_index);
-		if(result != 1) {
+		if(forein != 1 && result != 1) {
 			System.out.println("BoardService : delete() Error!!");
 		}
 	}
 	
 	
 	public BoardVO recommand(int index) {
-		
 		BoardVO boardVO = dao.recommandCnt(index);
 		return boardVO;
 	}

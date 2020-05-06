@@ -1,15 +1,17 @@
 package com.Kcompany.Kboard.common.paging;
 
+
 public class BoardPageCriteria {
 	
-	private int page;            // ÇöÀç ÆäÀÌÁö ¹øÈ£ (Limit ?, perPageNum)
-	private int perPageNum;      // ÆäÀÌÁö´ç Ãâ·ÂµÇ´Â °Ô½Ã±ÛÀÇ ¼ö (Limit page, perPageNum)
+	private int page;            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ (Limit ?, perPageNum)
+	private int perPageNum;      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÂµÇ´ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ (Limit page, perPageNum)
+	private int pageStart;
 	
 	
 	public BoardPageCriteria() {
 		
-		this.page = 1;           // ÇöÀç ÆäÀÌÁö default °ª
-		this.perPageNum = 10;     // ÆäÀÌÁö´ç Ãâ·Â °Ô½Ã±Û ¼ö default °ª
+		this.page = 1;           // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ default ï¿½ï¿½
+		this.perPageNum = 10;     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ default ï¿½ï¿½
 		
 	}
 	
@@ -30,9 +32,13 @@ public class BoardPageCriteria {
 		this.perPageNum = perPageNum;
 	}
 	
+	public final void setPageStart() {
+		this.pageStart = (this.page - 1) * this.perPageNum;
+	}
+
 	public int getPageStart() {
 		
-		return (this.page - 1) * this.perPageNum;
+		return pageStart;
 		
 	}
 

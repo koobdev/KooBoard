@@ -2,11 +2,12 @@ package com.Kcompany.Kboard.common.paging;
 
 public class ReplyPageCriteria {
 
-	private int page;         // ÇöÀç ÆäÀÌÁö ¹øÈ£ (Limit ?,perPageNum)
-	private int perPageNum;   // ÆäÀÌÁö´ç Ãâ·ÂµÇ´Â ´ñ±ÛÀÇ ¼ö (Limit page,?)
+	private int page;         // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ (Limit ?,perPageNum)
+	private int perPageNum;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÂµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (Limit page,?)
+	private int pageStart;
 	
 	
-	public ReplyPageCriteria() { // Default °ª
+	public ReplyPageCriteria() { // Default ï¿½ï¿½
 		this.page = 1;
 		this.perPageNum = 5;
 	}
@@ -28,10 +29,12 @@ public class ReplyPageCriteria {
 		this.perPageNum = perPageNum;
 	}
 	
+	public final void setPageStart() {
+		this.pageStart = (this.page - 1) * this.perPageNum;
+	}
+
 	public int getPageStart() {
-		
-		return (this.page - 1) * this.perPageNum;
-		
+		return pageStart;
 	}
 	
 }

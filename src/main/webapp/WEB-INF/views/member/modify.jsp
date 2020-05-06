@@ -9,9 +9,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%String cp = request.getContextPath(); %>
 <!-- 부트스트랩3 -->
-<link rel="stylesheet" href="<%=cp%>/resources/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="<%=cp%>/resources/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>

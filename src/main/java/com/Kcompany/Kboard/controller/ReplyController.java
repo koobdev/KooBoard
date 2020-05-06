@@ -22,7 +22,7 @@ import com.Kcompany.Kboard.vo.ReplyVO;
 @Controller
 public class ReplyController {
 
-	// openContent ÇÏ¸é, ´ñ±Û º¸¿©ÁÖ±â -> ÀÌ°Å´Â BoardController¿¡¼­ °¡°øÇÏÀÚ
+	// openContent ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ -> ï¿½Ì°Å´ï¿½ BoardControllerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	
 	@Autowired
@@ -32,20 +32,20 @@ public class ReplyController {
 	BoardService b_service;
 	
 	
-	// ´ñ±Û ¾²±â
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	@RequestMapping("/replyWrite")
 	public ModelAndView replyWrite(ReplyVO reply, HttpServletRequest request, ReplyPageCriteria pc) {
 
 		ModelAndView mav = new ModelAndView();
-		// index´Â Çö ÆäÀÌÁöÀÇ indexÀÌ´Ù.
+		// indexï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ indexï¿½Ì´ï¿½.
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String memId = member.getMemId();
+		String sessionId = member.getMemId();
 		
-		r_service.write(reply, memId);
+		r_service.write(reply, sessionId);
 
-		//ÀÌ°Å´Â boardÀÇ viewÀÌ´Ù.
+		//ï¿½Ì°Å´ï¿½ boardï¿½ï¿½ viewï¿½Ì´ï¿½.
 		BoardVO boardVO = b_service.view(reply.getB_index());
 		
 		List<ReplyVO> list = r_service.listAll(boardVO.getB_index(), pc);
@@ -67,7 +67,7 @@ public class ReplyController {
 	
 	
 	
-	// ´ñ±Û ¼öÁ¤ÇÏ±â
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	@RequestMapping("/replyCorrect")
 	public ModelAndView replyCorrect(ReplyVO reply, HttpServletRequest request, ReplyPageCriteria pc) {
 		
@@ -99,7 +99,7 @@ public class ReplyController {
 	
 	
 	
-	// ´ñ±Û »èÁ¦ÇÏ±â
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	@RequestMapping("/replyDelete")
 	public ModelAndView replyDelete(@RequestParam("r_index") int r_index, @RequestParam("b_index") int b_index, HttpServletRequest request, ReplyPageCriteria pc) {
 		

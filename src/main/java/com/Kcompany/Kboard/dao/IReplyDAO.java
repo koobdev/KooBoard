@@ -11,14 +11,14 @@ public interface IReplyDAO {
 	
 	int totalCount(int index);
 	
-	ReplyVO select(ReplyVO replyVO, int index);
-	
+/*	ReplyVO select(ReplyVO replyVO, int index);
+*/	
 	int recentIndex();
 	
-	int insert(ReplyVO reply, String memId);
+	int insert(ReplyVO reply, String sessionId);
 	
-	int update(ReplyVO reply, String memId);
+	int update(ReplyVO reply, String sessionId);
 	
-	int delete(int r_index, String memId);
+	int delete(int r_index, String memsessionIdId);
 
 }

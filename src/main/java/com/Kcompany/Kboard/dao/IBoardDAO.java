@@ -17,9 +17,9 @@ public interface IBoardDAO {
 	
 	int recentIndex();
 	
-	int insert(BoardVO board, String writer);
+	int insert(BoardVO board);
 	
-	int update(BoardVO board, String writer);
+	int update(BoardVO board);
 	
 	int delete(int b_index);
 	

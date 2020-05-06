@@ -14,6 +14,7 @@ public class ReplyService implements IReplyService{
 
 	@Autowired
 	ReplyDAO dao;
+
 	
 	public List<ReplyVO> listAll(int index, ReplyPageCriteria pc) {
 		List<ReplyVO> list = dao.selectlist(index, pc);
@@ -26,35 +27,37 @@ public class ReplyService implements IReplyService{
 		int result = dao.totalCount(index);
 		return result;
 	}
-	
+	/*
 	public ReplyVO view(ReplyVO reply, int index) {
 		ReplyVO replyVO = dao.select(reply, index);
 		
 		
 		return replyVO;
-	}
+	}*/
 	
-	public int write(ReplyVO reply, String memId) {
+	public int write(ReplyVO reply, String sessionId) {
 		
-		int result = dao.insert(reply, memId);
+		int recIndex = dao.recentIndex();
+		reply.setR_index(++recIndex);
+		int result = dao.insert(reply, sessionId);
 		if(result != 1) {
 			System.out.println("ReplyService : write() Error!!");
 		}
 		return result;
 	}
 	
-	public int correct(ReplyVO reply, String memId) {
+	public int correct(ReplyVO reply, String sessionId) {
 		
-		int result = dao.update(reply, memId);
+		int result = dao.update(reply, sessionId);
 		if(result != 1) {
 			System.out.println("ReplyService : correct() Error!!");
 		}
 		return result;
 	}
 
-	public int delete(int r_index, String memId) {
+	public int delete(int r_index, String sessionId) {
 		
-		int result = dao.delete(r_index, memId);
+		int result = dao.delete(r_index, sessionId);
 		if(result != 1) {
 			System.out.println("ReplyService : delete() Error!!");
 		}

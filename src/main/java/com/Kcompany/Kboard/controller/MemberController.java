@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +17,12 @@ import com.Kcompany.Kboard.vo.MemberVO;
 @Controller
 public class MemberController {
 	
-	//°´Ã¼ ÀÚµ¿ÁÖÀÔ
+	//ï¿½ï¿½Ã¼ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
 	@Autowired
 	MemberService service;
 	
 	
-	//contextpath¸¦ ModelAttribute¸¦ ÅëÇØ controller°¡ È£ÃâµÉ¶§ Ç×»ó »ç¿ëÇÒ ¼ö ÀÖµµ·Ï ÇÔ.
+	//contextpathï¿½ï¿½ ModelAttributeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ controllerï¿½ï¿½ È£ï¿½ï¿½É¶ï¿½ ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½.
 	@ModelAttribute("cp")
 	public String classpath(HttpServletRequest request) {
 			
@@ -92,17 +93,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memModify", method = RequestMethod.POST)
-	public ModelAndView memModify(MemberVO member, HttpServletRequest request) { //update
+	public String memModify(Model model, MemberVO member, HttpServletRequest request) { //update
 		
-		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 		MemberVO memSession = (MemberVO) session.getAttribute("member");
-		MemberVO mem = service.memModify(member, memSession);
+		if(memSession.getMemId().equals(member.getMemId()) != true) {
+			return "/member/memModifyError";
+		}
 		
-		mav.addObject("member", mem);
-		mav.setViewName("/member/memModifyOK");
+		MemberVO mem = service.memModify(member);
+		model.addAttribute("member", mem);
 		
-		return mav;
+		return "/member/memModifyOK";
 	}
 	
 	
