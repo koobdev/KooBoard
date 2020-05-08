@@ -11,8 +11,6 @@ public interface IReplyService {
 	
 	int totalCount(int index);
 	
-/*	ReplyVO view(ReplyVO reply, int index);
-*/	
 	int write(ReplyVO reply, String sessionId);
 	
 	int correct(ReplyVO reply, String sessionId);

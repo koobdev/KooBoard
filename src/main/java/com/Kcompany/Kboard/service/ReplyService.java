@@ -27,13 +27,7 @@ public class ReplyService implements IReplyService{
 		int result = dao.totalCount(index);
 		return result;
 	}
-	/*
-	public ReplyVO view(ReplyVO reply, int index) {
-		ReplyVO replyVO = dao.select(reply, index);
-		
-		
-		return replyVO;
-	}*/
+	
 	
 	public int write(ReplyVO reply, String sessionId) {
 		

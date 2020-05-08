@@ -58,26 +58,24 @@
 	</table>
 	
 	
-	<div class="col-md-offset">
-		<ul class="pagination">
-			<c:if test="${paging.prev}">
-				<li>
-					<a href="openList?page=${paging.startNum-1}">이전</a>
-				</li>
-			</c:if>
-			<c:forEach begin="${paging.startNum}" end="${paging.endNum}" var="index">
-				<li <c:out value="${paging.pc.page == index ? 'class=active' : ''}"/>>
-					<a href="openList?page=${index}">${index}</a>
-				</li>
-			</c:forEach>
-	
-			<c:if test="${paging.next && paging.endNum > 0}">
-				<li>
-					<a href="openList?page=${paging.endNum+1}">다음</a>
-				</li>
-			</c:if>
-		</ul>
-	</div>
+	<ul class="pagination justify-content-center">
+		<c:if test="${paging.prev}">
+			<li class="page-item">
+				<a class="page-link" href="openList?page=${paging.startNum-1}">이전</a>
+			</li>
+		</c:if>
+		<c:forEach begin="${paging.startNum}" end="${paging.endNum}" var="index">
+			<li class="page-item" <c:out value="${paging.pc.page == index ? 'class=active' : ''}"/>>
+				<a class="page-link" href="openList?page=${index}">${index}</a>
+			</li>
+		</c:forEach>
+
+		<c:if test="${paging.next && paging.endNum > 0}">
+			<li class="page-item">
+				<a class="page-link" href="openList?page=${paging.endNum+1}">다음</a>
+			</li>
+		</c:if>
+	</ul>
 		
 	</section>
 </div>

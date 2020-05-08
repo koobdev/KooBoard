@@ -32,8 +32,8 @@ public class BoardController {
 	
 	@Autowired
 	ReplyService r_service;
-	
 
+	
 	// ��ü �Խñ� �����ֱ�
 	@RequestMapping("/openList")
 	public ModelAndView openList(BoardPageCriteria pc) {
@@ -56,7 +56,7 @@ public class BoardController {
 		return mav;
 	}
 	
-	// �Խñ� ���� �����ֱ� -> ��ȣ, ����, ����,  ��ȸ��, ��õ��, ��ۼ�, �ۼ���, �ۼ���..
+	// �Խñ� ���� �����ֱ� -> ��ȣ, ����, ����,  ��ȸ��, ��õ��, ��ۼ�, �ۼ���, �ۼ���..	
 	@RequestMapping(value="/openContent", method = RequestMethod.GET)
 	public ModelAndView openContent(@RequestParam("b_index")int index, ReplyPageCriteria pc) {
 		

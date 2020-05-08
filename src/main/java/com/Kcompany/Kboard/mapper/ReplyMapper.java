@@ -25,7 +25,7 @@ public interface ReplyMapper {
 	@Select("select r_index from reply where r_index=(select MAX(r_index) from reply)")
 	int recentIndex();
 	
-	@Insert("insert into reply values(#{reply.r_index},#{sessionId},#{reply.r_content},now(),#{reply.b_index}")
+	@Insert("insert into reply values(#{reply.r_index},#{sessionId},#{reply.r_content},now(),#{reply.b_index})")
 	int insert(@Param("reply") ReplyVO reply, @Param("sessionId") String sessionId);
 	
 	@Update("update reply set r_content=#{reply.r_content} where r_index=#{reply.r_index} and r_memId=#{sessionId} and b_index=#{reply.b_index}")

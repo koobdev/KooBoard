@@ -10,15 +10,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>댓글 작성</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<%String cp = request.getContextPath(); %>
-<!-- 부트스트랩3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -47,12 +38,17 @@
 				<thead>
 					<tr>
 						<th>댓글 수정</th>
+						<th></th>
 					</tr>
 				</thead>
-				<tbody align="left">
+				<tbody>
 					<tr>
-						<td><input type="text" name="r_content" size="120"></td>															
-						<td align="right"><button type="submit" class="btn btn-outline-success btn-sm">댓글 수정</button></td>
+						<td>
+							<input type="text" name="r_content" style="width:120%">
+						</td>															
+						<td align="right">
+							<button type="submit" class="btn btn-outline-success btn-sm">댓글 수정</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>

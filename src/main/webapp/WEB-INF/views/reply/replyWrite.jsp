@@ -8,17 +8,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-<title>댓글 작성</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<%String cp = request.getContextPath(); %>
-<!-- 부트스트랩3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -37,27 +28,33 @@
 	<div class="text-right"> 
 		<button id="writeReply_back" class="btn btn-outline-secondary btn-sm" onclick="click_writeReply_back()">뒤로가기</button>
 	</div><br/>
-	<div class="well text-center">
-		<form id="replyWrite" action="replyWrite" method="post">
-			<input type="hidden" name="r_index" value=0>
-			<input type="hidden" name="r_memId" value="<%=sessionId%>">
-			<input type="hidden" name="r_createDate" value="<%=tsp%>">
-			<input type="hidden" name="b_index" value="${view.b_index}">
+	<div class="container-fluid text-center">
+		<div class="well text-center">	
+			<form id="replyWrite" action="replyWrite" method="post">
+				<input type="hidden" name="r_index" value=0>
+				<input type="hidden" name="r_memId" value="<%=sessionId%>">
+				<input type="hidden" name="r_createDate" value="<%=tsp%>">
+				<input type="hidden" name="b_index" value="${view.b_index}">
 				<table class="table">
-				<thead>
-					<tr>
-						<th>댓글 작성</th>
-					</tr>
-				</thead>
-				<tbody align="left">
-					<tr>
-						<td><input type="text" name="r_content" placeholder="내용을 입력하세요." size="120"></td>															
-						<td align="right"><button type="submit" class="btn btn-outline-success btn-sm">댓글 등록</button></td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
+					<thead align="center">
+						<tr>
+							<th>댓글 작성</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<input type="text" name="r_content" placeholder="내용을 입력하세요." style="width:120%">
+							</td>		
+							<td align="right">
+								<button type="submit" class="btn btn-outline-success btn-sm">댓글 등록</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
 	</div>
-
 </body>
 </html>
