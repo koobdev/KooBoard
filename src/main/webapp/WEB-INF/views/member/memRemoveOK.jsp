@@ -11,7 +11,7 @@
 <body>
 <script type="text/javascript">
 	var cp = "<%=cp%>";
-	alert("회원정보 삭제 성공");
+	alert("회원정보 삭제 성공. 안녕히가세요.");
 	window.location.href = cp + "/memLoginForm"
 </script>
 </body>

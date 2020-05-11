@@ -17,6 +17,10 @@ public class MemberDAO implements IMemberDAO{
 		return memMapper.select(member);
 	}
 	
+	public MemberVO selectById(MemberVO member) {
+		return memMapper.selectById(member);
+	}
+	
 	public int insert(MemberVO member) {
 		return memMapper.insert(member);
 	}
@@ -27,6 +31,10 @@ public class MemberDAO implements IMemberDAO{
 	
 	public int delete(MemberVO member) {
 		return memMapper.delete(member);
+	}
+	
+	public String checkMemId(String memId) {
+		return memMapper.checkMemId(memId);
 	}
 }
 

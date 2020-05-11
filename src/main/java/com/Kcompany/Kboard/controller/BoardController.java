@@ -34,7 +34,7 @@ public class BoardController {
 	ReplyService r_service;
 
 	
-	// ��ü �Խñ� �����ֱ�
+	// 글 목록 열기
 	@RequestMapping("/openList")
 	public ModelAndView openList(BoardPageCriteria pc) {
 		
@@ -56,17 +56,18 @@ public class BoardController {
 		return mav;
 	}
 	
-	// �Խñ� ���� �����ֱ� -> ��ȣ, ����, ����,  ��ȸ��, ��õ��, ��ۼ�, �ۼ���, �ۼ���..	
+	// 글 목록에서 게시글 선택	
 	@RequestMapping(value="/openContent", method = RequestMethod.GET)
 	public ModelAndView openContent(@RequestParam("b_index")int index, ReplyPageCriteria pc) {
 		
 		ModelAndView mav = new ModelAndView();
 		BoardVO boardVO = b_service.view(index);
 				
-		//�Խñ� �����ٶ� ��۵� ���� ������ (list �������� ��� ����� �����־����)
+		// 해당 게시글의 index를 이용해서 댓글을 리스트 형태로 보여준다.
 		List<ReplyVO> list = r_service.listAll(boardVO.getB_index(), pc);
 		int listCnt = list.size();
 		
+		// 댓글 페이징처리
 		ReplyPaging paging = new ReplyPaging();
 		paging.setPaging(pc);
 		int totalPageNum = r_service.totalCount(index);
@@ -81,12 +82,13 @@ public class BoardController {
 		return mav;
 	}
 	
-	// �� ��õ�ϱ�
+	// 게시글 추천하기
 	@RequestMapping("/recommand")
 	public ModelAndView recommand(@RequestParam("b_index")int index, ReplyPageCriteria pc) {
 		
 		ModelAndView mav = new ModelAndView();
-		BoardVO boardvo = b_service.recommand(index);
+		b_service.recommand(index);
+		BoardVO boardvo = b_service.simpleRead(index);
 		
 		List<ReplyVO> list = r_service.listAll(boardvo.getB_index(),pc);
 		int listCnt = list.size();
@@ -99,21 +101,17 @@ public class BoardController {
 		return mav;
 	}
 	
-	// �� ����
+	// 게시글 작성하기
 	@RequestMapping("/writeForm")
 	public String writeForm() {
 		return "/board/write";
 	}
 	
 	@RequestMapping("/writeBoard")
-	public ModelAndView writeBoard(BoardVO board, HttpServletRequest request) {
+	public ModelAndView writeBoard(BoardVO board) {
 		
 		ModelAndView mav = new ModelAndView();
-		/*HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String writer = memberVO.getMemId();
 		
-		BoardVO result = b_service.write(board, writer);*/
 		BoardVO result = b_service.write(board);
 		BoardVO boardVO = b_service.view(result.getB_index());
 		
@@ -124,18 +122,17 @@ public class BoardController {
 	}
 	
 	
-	// �� �����ϱ�
+	// 게시글 수정하기
 	@RequestMapping("/correctBoardForm")
 	public String correctBoardForm(Model model, @RequestParam("b_index") int index, HttpServletRequest request) {
 		
-		// correctView�� ������� ������ ���� �������� �Բ� ������.
+		// correctView로 현재글의 내용을 수정 페이지와 함께 보여줌.
 		BoardVO boardVO = b_service.simpleRead(index);
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String sessionId = memberVO.getMemId();
-		System.out.println(sessionId);
-		System.out.println(boardVO.getB_memId());
 		
+		// 글 작성자와 현재 로그인된 사용자의 아이디가 다르면 수정할 수 없다.
 		if(boardVO.getB_memId().equals(sessionId)) {
 			model.addAttribute("correctView", boardVO);
 			return "/board/correct";
@@ -167,7 +164,7 @@ public class BoardController {
 	}
 	
 	
-	// �� �����ϱ�		
+	// 게시글 삭제하기		
 	@RequestMapping("deleteBoard")
 	public String deleteBoard(@RequestParam("b_index") int b_index) {
 		

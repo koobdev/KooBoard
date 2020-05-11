@@ -64,7 +64,7 @@ public class BoardService{
 		if(result == 0) {
 			System.out.println("BoardService : write() Error!!");
 		}else {
-			boardVO = simpleRead(result);
+			boardVO = simpleRead(board.getB_index());
 		}
 		
 		return boardVO;
@@ -90,9 +90,11 @@ public class BoardService{
 	}
 	
 	
-	public BoardVO recommand(int index) {
-		BoardVO boardVO = dao.recommandCnt(index);
-		return boardVO;
+	public void recommand(int index) {
+		int result = dao.recommandCnt(index);
+		if(result != 1) {
+			System.out.println("BoardService : recommand() Error!!");
+		}
 	}
 	
 

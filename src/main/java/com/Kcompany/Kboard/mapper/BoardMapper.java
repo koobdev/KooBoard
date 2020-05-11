@@ -41,7 +41,7 @@ public interface BoardMapper {
 	int delete(int b_index);
 	
 	@Update("update board set b_recommand=(b_recommand+1) where b_index=#{b_index}")
-	BoardVO recommandCnt(int index);
+	int recommandCnt(int index);
 }
 
 

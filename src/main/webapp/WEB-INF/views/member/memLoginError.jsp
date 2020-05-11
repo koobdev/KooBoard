@@ -7,7 +7,7 @@
 </head>
 <body>
 <script>
-	alert("아이디와 비밀번호를 다시 확인하세요.");
+	alert("비밀번호가 일치하지 않습니다.");
 	window.history.back();
 </script>
 </body>

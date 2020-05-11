@@ -7,17 +7,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%String cp = request.getContextPath(); %>
-<!-- 부트스트랩3 -->
-<link rel="stylesheet" href="<%=cp%>/resources/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="<%=cp%>/resources/js/bootstrap.min.js"></script>
+<!-- 부트스트랩4 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 
 <div class="container-fluid text-center"><br/>
-	<p>Server Time is : ${serverTime}</p><br/><br/>
-	
 	<c:if test="${empty member}">
 		<% 
 			response.sendRedirect(cp + "/memLoginForm"); 
@@ -25,13 +23,24 @@
 	</c:if>
 	<c:if test="${!empty member}">
 		<h2> 회원정보 </h2><br/>
-		<div class="col-md-6 col-md-offset-3">
+		<div class="container-fluid text-center">
 			<div class="row">
-			  <div class="col-md-4"><a href="${cp}/memLogout" type="button" class="btn btn-info btn-block"> 로그아웃 </a></div>
-			  <div class="col-md-4"><a href="${cp}/memModifyForm" type="button" class="btn btn-warning btn-block"> 회원정보 수정 </a></div>
-			  <div class="col-md-4"><a href="${cp}/memRemoveForm" type="button" class="btn btn-danger btn-block"> 회원 삭제 </a></div>
-			</div><br/>
-			<button onclick="location.href='openList'" type="button" class="btn btn-primary btn-block">뒤로가기</button>
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6">
+				  <div>
+				  	<a href="${cp}/memLogout" type="button" class="btn btn-info btn-block"> 로그아웃 </a>
+				 	<form action="${cp}/memModifyForm" method="post">
+				 		<input type="hidden" id="memId" name="memId" value="${member.memId}"/>
+				 		<button type="submit" class="btn btn-warning">회원정보 수정</button>
+				 	</form>
+				  	<a href="${cp}/memRemoveForm" type="button" class="btn btn-danger btn-block"> 회원 삭제 </a>
+				  </div>
+				  <div>
+				 	 <button onclick="location.href='openList'" type="button" class="btn btn-primary btn-block">뒤로가기</button>
+				  </div>
+				</div><br/>
+				<div class="col-sm-3"></div>
+			</div>
 		</div>
 	</c:if>
 </div>

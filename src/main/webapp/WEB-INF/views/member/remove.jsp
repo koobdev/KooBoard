@@ -8,8 +8,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%String cp = request.getContextPath(); %>
-<!-- 부트스트랩3 -->
+<!-- 부트스트랩4 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<!-- font-awesome5 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
@@ -27,17 +29,21 @@
 					<form id="remove" action="${cp}/memRemove" method="post">
 						<!-- 아이디 -->
 						<div id="idInputGroup" class="input-group">
-							<span class="input-group-addon">
-								<i class="glyphicon glyphicon-user"></i>
-							</span>
-							<input id="memId" type="text" class="form-control" name="memId" placeholder="4자리 이상 영문 아이디를 입력하세요">
+							<div class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-user fa-fw" aria-hidden="true"></i>
+								</span>
+							</div>
+							<input id="memId" type="text" class="form-control" name="memId" placeholder="삭제할 아이디를 입력하세요.">
 						</div>
 						<!-- 비밀번호 -->
 						<div id="pwInputGroup" class="input-group">
-							<span class="input-group-addon">
-								<i class="glyphicon glyphicon-lock"></i>
-							</span>
-							<input id="memPw" type="password" class="form-control" name="memPw" placeholder="4자리 이상 비밀번호를 입력하세요">
+							<div class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-key fa-fw" aria-hidden="true"></i>
+								</span>
+							</div>
+							<input id="memPw" type="password" class="form-control" name="memPw" placeholder="비밀번호를 입력하세요.">
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">로그인</button>
 						<button onclick="location.href='<%=cp%>/'" type="button" class="btn btn-info btn-block">뒤로가기</button>

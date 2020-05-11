@@ -6,9 +6,11 @@ public interface IMemberService {
 
 	MemberVO memSearch(MemberVO member);
 	
+	MemberVO memSearchById(MemberVO member);
+	
 	MemberVO memRegister(MemberVO member);
 
 	MemberVO memModify(MemberVO member, MemberVO memSession);
 	
-	MemberVO memDelete(MemberVO memSession);
+	int memDelete(MemberVO memSession);
 }

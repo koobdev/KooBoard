@@ -23,7 +23,7 @@ public interface IBoardDAO {
 	
 	int delete(int b_index);
 	
-	BoardVO recommandCnt(int index);
+	int recommandCnt(int index);
 	
 	
 }

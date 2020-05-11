@@ -9,10 +9,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+
 
 
 // Spring MVC 프로젝트에 관련된 설정을 하는 클래스
@@ -24,8 +28,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan("com.Kcompany.Kboard.controller")
 @ComponentScan("com.Kcompany.Kboard.service")
 @ComponentScan("com.Kcompany.Kboard.dao")
-@PropertySource("/WEB-INF/properties/db.properties")
 @MapperScan("com.Kcompany.Kboard.mapper")
+
+@PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
 	// db.properties에 정의 되어 있는 값을 가져온다.
@@ -78,6 +83,21 @@ public class ServletAppContext implements WebMvcConfigurer{
 		SqlSessionFactory factory = factoryBean.getObject();
 		
 		return factory;
+	}
+	
+	// PropertySource와 메세지로 등록한 properties파일의 충돌을 막기 위해 따로 Bean을 등록하여 관리한다.
+	@Bean
+	  public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+	    return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	// 에러메세지를 jsp에서 띄우기 위해서 error_message.properties를 메세지로 등록한다.
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
+		ms.setBasename("/WEB-INF/properties/error_message");
+		
+		return ms;
 	}
 	
 }

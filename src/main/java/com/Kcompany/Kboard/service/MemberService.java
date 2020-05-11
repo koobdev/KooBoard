@@ -18,6 +18,11 @@ public class MemberService{
 		return mem;
 	}
 	
+	public MemberVO memSearchById(MemberVO member) { //select By Id
+		MemberVO mem = dao.selectById(member);
+		return mem;
+	}
+	
 	public MemberVO memRegister(MemberVO member) { //insert
 		if(dao.insert(member) != 1) {
 			System.out.println("memRegister Error!");
@@ -32,11 +37,20 @@ public class MemberService{
 		return member;
 	}
 	
-	public MemberVO memDelete(MemberVO memSession) { //delete
+	public int memDelete(MemberVO memSession) { //delete
+		int result = dao.delete(memSession);
 		if(dao.delete(memSession) != 1) {
 			System.out.println("memDelete Error!");
 		}
-		return memSession;
+		return result;
+	}
+	
+	public boolean checkMemId(String memId) {
+		String check = dao.checkMemId(memId);
+		
+		if(check == null) {
+			return true;
+		}else return false;
 	}
 }
 

@@ -47,8 +47,8 @@ public class BoardDAO implements IBoardDAO {
 		return boardMapper.delete(b_index);
 	}
 
-	public BoardVO recommandCnt(int index) {
-		return boardMapper.read(index);
+	public int recommandCnt(int index) {
+		return boardMapper.recommandCnt(index);
 	}
 
 }

@@ -15,6 +15,9 @@ public interface MemberMapper {
 	@Select("select * from member where memId=#{memId} and memPw=#{memPw}")
 	MemberVO select(MemberVO member);
 	
+	@Select("select * from member where memId=#{memId}")
+	MemberVO selectById(MemberVO member);
+	
 	@Insert("insert into member value(#{memId},#{memPw},#{memMail},#{memPhone},now())")
 	int insert(MemberVO member);
 	
@@ -24,5 +27,8 @@ public interface MemberMapper {
 	
 	@Delete("delete from member where memId=#{memId} and memPw=#{memPw}")
 	int delete(MemberVO member);
+	
+	@Select("select memId from member where memId=#{memId}")
+	String checkMemId(String memId);
 	
 }

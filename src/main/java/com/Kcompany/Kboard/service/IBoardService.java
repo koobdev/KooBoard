@@ -22,6 +22,6 @@ public interface IBoardService {
 	
 	void delete(int b_index);
 	
-	BoardVO recommand(int b_index);
+	void recommand(int index);
 	
 }
