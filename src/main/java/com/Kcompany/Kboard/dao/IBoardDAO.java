@@ -2,28 +2,54 @@ package com.Kcompany.Kboard.dao;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import com.Kcompany.Kboard.common.paging.BoardPageCriteria;
-import com.Kcompany.Kboard.vo.BoardVO;
+import com.Kcompany.Kboard.common.paging.IBoardPageCriteria;
+import com.Kcompany.Kboard.mapper.ImageBoardMapper;
+import com.Kcompany.Kboard.vo.IBoardVO;
 
-public interface IBoardDAO {
+@Repository
+public class IBoardDAO {
+
+	@Autowired
+	private ImageBoardMapper boardMapper;
 	
-	List<BoardVO> list(BoardPageCriteria pc);
+	public List<IBoardVO> list(IBoardPageCriteria pc){
+		pc.setPageStart();
+		return boardMapper.list(pc);
+	}
 	
-	public int total();
+	public int total() {
+		return boardMapper.total();
+	}
 	
-	BoardVO read(int index);
+	public IBoardVO read(int index) {
+		return boardMapper.read(index);
+	}
+
+	public int hitCnt(IBoardVO board) {
+		return boardMapper.hitCnt(board);
+	}
 	
-	int hitCnt(BoardVO board);
-	
-	int recentIndex();
-	
-	int insert(BoardVO board);
-	
-	int update(BoardVO board);
-	
-	int delete(int b_index);
-	
-	int recommandCnt(int index);
-	
-	
+	public int recentIndex() {
+		return boardMapper.recentIndex();
+	}
+
+	public int insert(IBoardVO board) {
+		return boardMapper.insert(board);
+	}
+
+	public int update(IBoardVO board) {
+		return boardMapper.update(board);
+	}
+
+	public int delete(int b_index) {
+		return boardMapper.delete(b_index);
+	}
+
+	public int recommandCnt(int index) {
+		return boardMapper.recommandCnt(index);
+	}
+
 }

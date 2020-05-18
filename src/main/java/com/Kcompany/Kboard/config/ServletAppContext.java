@@ -1,5 +1,7 @@
 package com.Kcompany.Kboard.config;
 
+import java.io.File;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -11,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -59,8 +65,10 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		WebMvcConfigurer.super.addResourceHandlers(registry);
-		registry.addResourceHandler("/**").addResourceLocations("/resources/");
+		//WebMvcConfigurer.super.addResourceHandlers(registry);
+		registry.addResourceHandler("/resources/**")
+				.addResourceLocations("/resources/");
+		
 	}
 	
 	// dbcp 커넥션풀. 데이터베이스의 접속 정보를 관리한다.
@@ -99,6 +107,15 @@ public class ServletAppContext implements WebMvcConfigurer{
 		
 		return ms;
 	}
+		
+	// 파일데이터를 주입하기 위한 설정
+	// 클라이언트 폼에서 설정한 enctype="multipart/form-data"
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
+	
+	
 	
 }
 

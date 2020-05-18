@@ -1,13 +1,17 @@
 package com.Kcompany.Kboard.config;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -72,6 +76,20 @@ public class SpringConfigClass extends AbstractAnnotationConfigDispatcherServlet
 		encodingFilter.setEncoding("UTF-8");
 		return new Filter[] {encodingFilter};
 	}
+
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		// TODO Auto-generated method stub
+		super.customizeRegistration(registration);
+		
+		// 첫번째 매개변수 : 클라이언트가 보낸 파일데이터를 저장하는 임시파일의 경로 , null하면 임시폴더로 설정됨
+		// 두번째 매개변수 : 업로드하는 최대 용량 (바이트 단위로 50MB로 지정)
+		// 세번째 매개변수 : 파일데이터를 포함한 전체 요청정보의 최대용량 (바이트 단위로 100MB로 지정)
+		// 네번째 매개변수 : 파일의 임계값
+		MultipartConfigElement config1 = new MultipartConfigElement(null, 52428800, 104857600, 0);
+		registration.setMultipartConfig(config1);
+	}
+	
 }
 
 
