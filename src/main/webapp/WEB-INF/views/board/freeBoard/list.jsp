@@ -95,7 +95,7 @@
 				</tbody>
 			</table>
 		
-		
+			<!-- 게시글 페이징 -->
 			<ul class="pagination justify-content-center">
 				<c:if test="${paging.prev}">
 					<li class="page-item">

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>에러!!</title>
+<title>수정오류</title>
 </head>
 <body>
-	
-	<h2>세션 아이디 오류입니다.</h2>
+	<h2>수정오류. 아이디를 확인하세요.</h2>
 	<a href="/openList"></a>
 </body>
 </html>

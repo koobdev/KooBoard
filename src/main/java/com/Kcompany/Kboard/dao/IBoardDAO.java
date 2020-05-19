@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.Kcompany.Kboard.common.paging.BoardPageCriteria;
 import com.Kcompany.Kboard.common.paging.IBoardPageCriteria;
 import com.Kcompany.Kboard.mapper.ImageBoardMapper;
 import com.Kcompany.Kboard.vo.IBoardVO;
@@ -15,7 +14,9 @@ public class IBoardDAO {
 	@Autowired
 	private ImageBoardMapper boardMapper;
 	
+	
 	public List<IBoardVO> list(IBoardPageCriteria pc){
+		// 쿼리에 들어갈 페이지 시작번호를 가져옴
 		pc.setPageStart();
 		return boardMapper.list(pc);
 	}

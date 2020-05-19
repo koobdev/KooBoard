@@ -12,13 +12,13 @@ import com.Kcompany.Kboard.vo.FReplyVO;
 
 @Repository
 public class FReplyDAO {
-
 	
 	@Autowired
 	private FReplyMapper repMapper;
 	
 	
 	public List<FReplyVO> selectlist(int index, ReplyPageCriteria pc){
+		// 쿼리에 들어갈 페이지 시작번호를 가져옴
 		pc.setPageStart();
 		return repMapper.selectlist(index, pc);
 	}

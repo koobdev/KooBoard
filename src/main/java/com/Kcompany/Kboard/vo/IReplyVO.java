@@ -11,7 +11,6 @@ public class IReplyVO {
 	private int b_index;
 	
 	
-	
 	public final int getR_index() {
 		return r_index;
 	}
@@ -42,5 +41,4 @@ public class IReplyVO {
 	public final void setB_index(int b_index) {
 		this.b_index = b_index;
 	}
-	
 }

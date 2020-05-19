@@ -1,6 +1,5 @@
 package com.Kcompany.Kboard.controller;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,34 +31,35 @@ public class FreeBoardController {
 	
 	@Autowired
 	private FReplyService r_service;
+	
+	@Autowired
+	private BoardPaging b_paging;
+	
+	@Autowired
+	private ReplyPaging r_paging;
 
 	
-	// 글 목록 열기
+	// 게시글 목록 열기(로그인 후 메인화면)
 	@RequestMapping("/openList")
 	public ModelAndView openList(BoardPageCriteria pc) {
-		
 		ModelAndView mav = new ModelAndView();
 		List<FBoardVO> list = b_service.listAll(pc);
 		
-		
-		BoardPaging paging = new BoardPaging();
-		paging.setPage(pc);
+		// 게시글 페이징 처리
+		b_paging.setPage(pc);
 		int totalPageNum = b_service.totalCount();
-		paging.setTotalCount(totalPageNum);
+		b_paging.setTotalCount(totalPageNum);
 		
-		
+		// Request영역에 Attribute저장
 		mav.addObject("list", list);
-		mav.addObject("paging", paging);
+		mav.addObject("paging", b_paging);
 		mav.setViewName("/board/freeBoard/list");
-	
-		
 		return mav;
 	}
 	
 	// 글 목록에서 게시글 선택	
 	@RequestMapping(value="/openContent", method = RequestMethod.GET)
 	public ModelAndView openContent(@RequestParam("b_index")int index, ReplyPageCriteria pc) {
-		
 		ModelAndView mav = new ModelAndView();
 		FBoardVO boardVO = b_service.view(index);
 				
@@ -68,61 +68,57 @@ public class FreeBoardController {
 		int listCnt = list.size();
 		
 		// 댓글 페이징처리
-		ReplyPaging paging = new ReplyPaging();
-		paging.setPaging(pc);
+		r_paging.setPage(pc);
 		int totalPageNum = r_service.totalCount(index);
-		paging.setTotalCount(totalPageNum);
+		r_paging.setTotalCount(totalPageNum);
 		
+		// Request영역에 Attribute저장
 		mav.addObject("view", boardVO);
 		mav.addObject("viewReply", list);
 		mav.addObject("viewReplyCnt", listCnt);
-		mav.addObject("paging", paging);
+		mav.addObject("paging", r_paging);
 		mav.setViewName("/board/freeBoard/view");
-		
 		return mav;
 	}
 	
 	// 게시글 추천하기
 	@RequestMapping("/recommend")
 	public ModelAndView recommend(@RequestParam("b_index")int index, ReplyPageCriteria pc) {
-		
 		ModelAndView mav = new ModelAndView();
 		b_service.recommend(index);
 		FBoardVO boardvo = b_service.simpleRead(index);
 		
+		// 댓글을 리스트로 형태로 보여준다.
 		List<FReplyVO> list = r_service.listAll(boardvo.getB_index(),pc);
 		int listCnt = list.size();
 		
+		// Request영역에 Attribute저장
 		mav.addObject("view", boardvo);
 		mav.addObject("viewReply", list);
 		mav.addObject("viewReplyCnt", listCnt);
 		mav.setViewName("/board/freeBoard/view");
-		
 		return mav;
 	}
 	
-	// 게시글 작성하기
+	// 게시글 작성하기 폼
 	@RequestMapping("/writeForm")
 	public String writeForm() {
 		return "/board/freeBoard/write";
 	}
-	
+	// 게시글 작성하기
 	@RequestMapping("/writeBoard")
 	public ModelAndView writeBoard(FBoardVO board) {
-		
 		ModelAndView mav = new ModelAndView();
-		
 		FBoardVO result = b_service.write(board);
 		FBoardVO boardVO = b_service.view(result.getB_index());
 		
+		// Request영역에 Attribute저장
 		mav.addObject("view", boardVO);
 		mav.setViewName("/board/freeBoard/view");
-		
 		return mav;
 	}
 	
-	
-	// 게시글 수정하기
+	// 게시글 수정하기 폼
 	@RequestMapping("/correctBoardForm")
 	public String correctBoardForm(Model model, @RequestParam("b_index") int index, HttpServletRequest request) {
 		
@@ -140,21 +136,19 @@ public class FreeBoardController {
 			System.out.println("Error!!!!!!!!!!!!!!!!!!!");
 			return "redirect:/board/freeBoard/correctError";
 		}
-		
 	}
-	
+	// 게시글 수정하기
 	@RequestMapping("/correctBoard")
 	public ModelAndView correctBoard(FBoardVO board, HttpServletRequest request, ReplyPageCriteria pc) {
-		
 		ModelAndView mav = new ModelAndView();
-		int result = b_service.correct(board);
-		if(result != 1) System.out.println("correct Failed");
-		
+		 b_service.correct(board);
 		FBoardVO boardVO = b_service.view(board.getB_index());
-				
+		
+		// 댓글을 리스트로 형태로 보여준다.
 		List<FReplyVO> list = r_service.listAll(boardVO.getB_index(), pc);
 		int listCnt = list.size();
 		
+		// Request영역에 Attribute저장
 		mav.addObject("view", boardVO);
 		mav.addObject("viewReply", list);
 		mav.addObject("viewReplyCnt", listCnt);
@@ -163,17 +157,13 @@ public class FreeBoardController {
 		return mav;
 	}
 	
-	
 	// 게시글 삭제하기		
 	@RequestMapping("deleteBoard")
 	public String deleteBoard(@RequestParam("b_index") int b_index) {
-		
 		b_service.delete(b_index);
 		
 		return "redirect:/openList";
 	}
-
-	
 
 }
 

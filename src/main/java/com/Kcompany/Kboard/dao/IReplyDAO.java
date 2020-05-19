@@ -11,13 +11,13 @@ import com.Kcompany.Kboard.vo.IReplyVO;
 
 @Repository
 public class IReplyDAO {
-
 	
 	@Autowired
 	private IReplyMapper repMapper;
 	
 	
 	public List<IReplyVO> selectlist(int index, ReplyPageCriteria pc){
+		// 쿼리에 들어갈 페이지 시작번호를 가져옴
 		pc.setPageStart();
 		return repMapper.selectlist(index, pc);
 	}

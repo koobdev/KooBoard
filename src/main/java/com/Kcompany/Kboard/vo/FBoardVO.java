@@ -14,7 +14,6 @@ public class FBoardVO {
 	private Timestamp b_createDate;
 	
 	
-	
 	public final int getB_index() {
 		return b_index;
 	}
@@ -63,6 +62,4 @@ public class FBoardVO {
 	public final void setB_createDate(Timestamp b_createDate) {
 		this.b_createDate = b_createDate;
 	}
-	
-	
 }

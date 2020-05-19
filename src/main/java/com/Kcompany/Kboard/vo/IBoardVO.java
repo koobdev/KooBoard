@@ -2,11 +2,7 @@ package com.Kcompany.Kboard.vo;
 
 import java.sql.Timestamp;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +27,6 @@ public class IBoardVO {
 	private int b_replyCount;
 	private String b_memId;
 	private Timestamp b_createDate;
-	
 	
 	
 	public final int getB_index() {
@@ -94,6 +89,4 @@ public class IBoardVO {
 	public final void setB_createDate(Timestamp b_createDate) {
 		this.b_createDate = b_createDate;
 	}
-	
-	
 }

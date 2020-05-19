@@ -35,34 +35,35 @@ public class ImageBoardController {
 	
 	@Autowired
 	private IReplyService r_service;
+	
+	@Autowired
+	private IBoardPaging b_paging;
+	
+	@Autowired
+	private ReplyPaging r_paging;
 
 	
 	// 글 목록 열기
 	@RequestMapping("/imageOpenList")
 	public ModelAndView openList(IBoardPageCriteria pc) {
-		
 		ModelAndView mav = new ModelAndView();
 		List<IBoardVO> list = b_service.listAll(pc);
 		
-		
-		IBoardPaging paging = new IBoardPaging();
-		paging.setPage(pc);
+		// 게시글 페이징 처리
+		b_paging.setPage(pc);
 		int totalPageNum = b_service.totalCount();
-		paging.setTotalCount(totalPageNum);
+		b_paging.setTotalCount(totalPageNum);
 		
-		
+		// Request영역에 Attribute저장
 		mav.addObject("list", list);
-		mav.addObject("paging", paging);
+		mav.addObject("paging", b_paging);
 		mav.setViewName("/board/imageBoard/list");
-	
-		
 		return mav;
 	}
 	
 	// 글 목록에서 게시글 선택	
 	@RequestMapping(value="/imageOpenContent", method = RequestMethod.GET)
 	public ModelAndView openContent(@RequestParam("b_index")int index, ReplyPageCriteria pc) {
-		
 		ModelAndView mav = new ModelAndView();
 		IBoardVO boardVO = b_service.view(index);
 				
@@ -71,67 +72,68 @@ public class ImageBoardController {
 		int listCnt = list.size();
 		
 		// 댓글 페이징처리
-		ReplyPaging paging = new ReplyPaging();
-		paging.setPaging(pc);
+		r_paging.setPage(pc);
 		int totalPageNum = r_service.totalCount(index);
-		paging.setTotalCount(totalPageNum);
+		r_paging.setTotalCount(totalPageNum);
 		
+		// Request영역에 Attribute저장
 		mav.addObject("view", boardVO);
 		mav.addObject("viewReply", list);
 		mav.addObject("viewReplyCnt", listCnt);
-		mav.addObject("paging", paging);
+		mav.addObject("paging", r_paging);
 		mav.setViewName("/board/imageBoard/view");
-		
 		return mav;
 	}
 	
 	// 게시글 추천하기
 	@RequestMapping("/imageRecommand")
 	public ModelAndView recommand(@RequestParam("b_index")int index, ReplyPageCriteria pc) {
-		
 		ModelAndView mav = new ModelAndView();
 		b_service.recommand(index);
 		IBoardVO boardvo = b_service.simpleRead(index);
 		
+		// 댓글을 리스트의 형태로 보여준다.
 		List<IReplyVO> list = r_service.listAll(boardvo.getB_index(),pc);
 		int listCnt = list.size();
 		
+		// Request영역에 Attribute저장
 		mav.addObject("view", boardvo);
 		mav.addObject("viewReply", list);
 		mav.addObject("viewReplyCnt", listCnt);
 		mav.setViewName("/board/imageBoard/view");
-		
 		return mav;
 	}
 	
-	// 게시글 작성하기
+	// 게시글 작성하기 폼
 	@RequestMapping("/imageWriteForm")
 	public String writeForm(@ModelAttribute("IWrite") IBoardVO board) {
 		return "/board/imageBoard/write";
 	}
-	
+	// 게시글 작성하기
 	@RequestMapping(value="/imageWriteBoard", method=RequestMethod.POST)
 	public String writeBoard(@Valid @ModelAttribute("IWrite")IBoardVO board, Model model, BindingResult result) {
 		
+		// 요청에서 에러가 발생하면 게시글 작성하기 폼을 이용하여 에러 결과 표출
 		if(result.hasErrors()) {
 			return "/board/imageBoard/write";
 		}
 		
-		// 이미지 첨부를 하지 않으면 Error페이지로 이동
+		// 이미지 첨부를 하면 작성처리
 		if(board.getUploadFile().getSize() > 0) {
 			IBoardVO iresult = b_service.write(board);
 			IBoardVO boardVO = b_service.view(iresult.getB_index());
-			
 			model.addAttribute("view",boardVO);
+			
 			return "/board/imageBoard/view";
-		}else {
+		}
+		// 이미지 첨부를 하지 않으면 Error페이지로 이동
+		else {
 			return "/board/imageBoard/writeError";
 		}
 		
 	}
 	
-	
-	// 게시글 수정하기
+	// 게시글 수정하기 폼
 	@RequestMapping("/imageCorrectBoardForm")
 	public String correctBoardForm(Model model, @RequestParam("b_index") int index, HttpServletRequest request) {
 		
@@ -149,48 +151,48 @@ public class ImageBoardController {
 			System.out.println("Error!!!!!!!!!!!!!!!!!!!");
 			return "redirect:/board/imageBoard/correctError";
 		}
-		
 	}
-	
+	// 게시글 수정하기
 	@RequestMapping("/imageCorrectBoard")
 	public String correctBoard(@Valid @ModelAttribute("correctView")IBoardVO board, HttpServletRequest request, 
 							   ReplyPageCriteria pc, Model model, BindingResult result) {
 		
+		// 요청에서 에러가 발생하면 게시글 수정하기 폼을 이용하여 에러 결과 표출
 		if(result.hasErrors()) {
 			return "/board/imageBoard/correct";
 		}
 		
+		// 이미지 첨부를 하면 수정처리
 		if(board.getUploadFile().getSize() > 0) {
 			int iresult = b_service.correct(board);
 			if(iresult != 1) return "redirect:/board/imageBoard/correctError";
 			
 			IBoardVO boardVO = b_service.view(board.getB_index());
-					
+			
+			// 댓글을 리스트의 형태로 보여준다.		
 			List<IReplyVO> list = r_service.listAll(boardVO.getB_index(), pc);
 			int listCnt = list.size();
 			
+			// Request영역에 Attribute저장
 			model.addAttribute("view", boardVO);
 			model.addAttribute("viewReply", list);
 			model.addAttribute("viewReplyCnt", listCnt);
-			
 			return "/board/imageBoard/view";
-		}else {
+		}
+		// 이미지 첨부를 하지 않으면 Error페이지로 이동
+		else {
 			return "/board/imageBoard/writeError";
 		}
-	
 	}
 	
 	
 	// 게시글 삭제하기		
 	@RequestMapping("imageDeleteBoard")
 	public String deleteBoard(@RequestParam("b_index") int b_index) {
-		
 		b_service.delete(b_index);
 		
 		return "redirect:/imageOpenList";
 	}
-
-	
 
 }
 

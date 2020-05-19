@@ -13,7 +13,6 @@ import com.Kcompany.Kboard.vo.FBoardVO;
 @Service
 public class FBoardService{
 	
-	
 	@Autowired
 	private FBoardDAO dao;
 	
@@ -26,19 +25,16 @@ public class FBoardService{
 		return list;
 	}
 	
-	
 	public int totalCount() {
 		int result = dao.total();
 		return result;
 	}
-	
-	
+
 	public FBoardVO view(int index) {
 		FBoardVO boardVO = null;
 		int result = 0;
 		
 		boardVO = dao.read(index);
-		
 		result = dao.hitCnt(boardVO);
 		if(result != 1) {
 			System.out.println("BoardService : view() Error!!!");
@@ -46,17 +42,14 @@ public class FBoardService{
 		return boardVO;
 	}
 	
-	
-	
 	public FBoardVO simpleRead(int index) {
 		FBoardVO boardVO = dao.read(index);
 		return boardVO;
 	}
 	
-	
 	public FBoardVO write(FBoardVO board) {
-		
 		FBoardVO boardVO = null;
+		// 최근 index를 불러와서 board객체에 주입해줌
 		int recindex = dao.recentIndex();
 		board.setB_index(++recindex);
 		int result = dao.insert(board);
@@ -66,29 +59,23 @@ public class FBoardService{
 		}else {
 			boardVO = simpleRead(board.getB_index());
 		}
-		
 		return boardVO;
 	}
 	
-	
-	public int correct(FBoardVO board) {
+	public void correct(FBoardVO board) {
 		int result = dao.update(board);
 		if(result != 1) {
 			System.out.println("BoardService : correct() Error!!");
 		}
-		return result;
 	}
 	
-	
 	public void delete(int b_index) {
-		
 		int forein = dao2.deleteBoard(b_index);
 		int result = dao.delete(b_index);
 		if(forein != 1 && result != 1) {
 			System.out.println("BoardService : delete() Error!!");
 		}
 	}
-	
 	
 	public void recommend(int index) {
 		int result = dao.recommendCnt(index);
@@ -97,8 +84,6 @@ public class FBoardService{
 		}
 	}
 	
-
-
 }
 
 

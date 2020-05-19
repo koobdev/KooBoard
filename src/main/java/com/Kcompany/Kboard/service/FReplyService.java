@@ -18,19 +18,16 @@ public class FReplyService{
 	
 	public List<FReplyVO> listAll(int index, ReplyPageCriteria pc) {
 		List<FReplyVO> list = dao.selectlist(index, pc);
-		
 		return list;
 	}
 	
 	public int totalCount(int index) {
-		
 		int result = dao.totalCount(index);
 		return result;
 	}
 	
-	
 	public int write(FReplyVO reply, String sessionId) {
-		
+		// 최근 index를 불러와서 board객체에 주입해줌
 		int recIndex = dao.recentIndex();
 		reply.setR_index(++recIndex);
 		int result = dao.insert(reply, sessionId);
@@ -41,7 +38,6 @@ public class FReplyService{
 	}
 	
 	public int correct(FReplyVO reply, String sessionId) {
-		
 		int result = dao.update(reply, sessionId);
 		if(result != 1) {
 			System.out.println("ReplyService : correct() Error!!");
@@ -50,7 +46,6 @@ public class FReplyService{
 	}
 
 	public int delete(int r_index, String sessionId) {
-		
 		int result = dao.delete(r_index, sessionId);
 		if(result != 1) {
 			System.out.println("ReplyService : delete() Error!!");

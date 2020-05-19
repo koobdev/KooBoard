@@ -18,19 +18,15 @@ public class IReplyService{
 	
 	public List<IReplyVO> listAll(int index, ReplyPageCriteria pc) {
 		List<IReplyVO> list = dao.selectlist(index, pc);
-		
 		return list;
 	}
 	
 	public int totalCount(int index) {
-		
 		int result = dao.totalCount(index);
 		return result;
 	}
 	
-	
 	public int write(IReplyVO reply, String sessionId) {
-		
 		int recIndex = dao.recentIndex();
 		reply.setR_index(++recIndex);
 		int result = dao.insert(reply, sessionId);
@@ -41,7 +37,6 @@ public class IReplyService{
 	}
 	
 	public int correct(IReplyVO reply, String sessionId) {
-		
 		int result = dao.update(reply, sessionId);
 		if(result != 1) {
 			System.out.println("ReplyService : correct() Error!!");

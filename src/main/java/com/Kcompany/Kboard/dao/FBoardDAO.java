@@ -14,7 +14,9 @@ public class FBoardDAO {
 	@Autowired
 	private FreeBoardMapper boardMapper;
 	
+	
 	public List<FBoardVO> list(BoardPageCriteria pc){
+		// 쿼리에 들어갈 페이지 시작번호를 가져옴
 		pc.setPageStart();
 		return boardMapper.list(pc);
 	}

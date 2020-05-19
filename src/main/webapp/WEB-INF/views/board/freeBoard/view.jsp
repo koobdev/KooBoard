@@ -18,7 +18,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -79,8 +78,6 @@
 							<button id="recommendSubmit" type="submit" class="btn btn-primary">추천 ${view.b_recommend}</button>
 						</form><br/><br/>
 					</div><br/><br/><br/>
-					
-					
 					<!-- 작성글 댓글 -->
 					<%
 						String time = "2020-01-01 12:00:00";
@@ -90,7 +87,6 @@
 						Timestamp tsp = new Timestamp(date.getTime());
 					%>
 				</div>	
-					
 				
 				<!-- 댓글 표시(기본화면) -->
 				<div class="card-footer">
