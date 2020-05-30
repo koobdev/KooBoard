@@ -4,8 +4,6 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
-
 public class MemberVO {
 
 	@Size(min=6, max=10)
@@ -67,5 +65,4 @@ public class MemberVO {
 	public final void setCheckId(boolean checkId) {
 		this.checkId = checkId;
 	}
-	
 }

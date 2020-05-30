@@ -2,23 +2,64 @@ package com.Kcompany.Kboard.dao;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.Kcompany.Kboard.common.paging.ReplyPageCriteria;
-import com.Kcompany.Kboard.vo.ReplyVO;
+import com.Kcompany.Kboard.mapper.IReplyMapper;
+import com.Kcompany.Kboard.vo.IReplyVO;
 
-public interface IReplyDAO {
+@Repository
+public class IReplyDAO {
 	
-	List<ReplyVO> selectlist(int index, ReplyPageCriteria pc);
+	@Autowired
+	private IReplyMapper repMapper;
 	
-	int totalCount(int index);
 	
-/*	ReplyVO select(ReplyVO replyVO, int index);
-*/	
-	int recentIndex();
+	public List<IReplyVO> selectlist(int index, ReplyPageCriteria pc){
+		// 쿼리에 들어갈 페이지 시작번호를 가져옴
+		pc.setPageStart();
+		return repMapper.selectlist(index, pc);
+	}
 	
-	int insert(ReplyVO reply, String sessionId);
+	public int totalCount(int index) {
+		return repMapper.totalCount(index);
+	}
 	
-	int update(ReplyVO reply, String sessionId);
+	public int recentIndex() {
+		return repMapper.recentIndex();
+	}
+		
+	public int insert(IReplyVO reply, String sessionId) {
+		return repMapper.insert(reply, sessionId);
+	}
 	
-	int delete(int r_index, String memsessionIdId);
+	public int update(IReplyVO reply, String sessionId) {
+		return repMapper.update(reply, sessionId);
+	}
 
+	public int delete(int r_index, String sessionId) {
+		return repMapper.delete(r_index, sessionId);
+	}
+
+	public int deleteBoard(int b_index) {
+		return repMapper.deleteBoard(b_index);
+	}
+
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

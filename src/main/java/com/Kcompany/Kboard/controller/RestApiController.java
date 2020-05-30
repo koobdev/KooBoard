@@ -13,6 +13,8 @@ public class RestApiController {
 	@Autowired
 	MemberService memService;
 	
+	// 중복된 아이디가 있는지 검사한다. 
+	// @RestController를 사용하여 문자열 자체를 반환한다.
 	@RequestMapping("/memIdCheck/{memId}")
 	String checkMemExist(@PathVariable String memId) {
 		
@@ -20,4 +22,5 @@ public class RestApiController {
 		
 		return chk + "";
 	}
+	
 }

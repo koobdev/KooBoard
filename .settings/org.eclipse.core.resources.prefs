@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
-encoding//src/main/java/com/Kcompany/Kboard/controller/BoardController.java=UTF-8
-encoding//src/main/webapp/WEB-INF/views/board/correctError.jsp=UTF-8
+encoding//src/main/java/com/Kcompany/Kboard/controller/FreeBoardController.java=UTF-8
+encoding//src/main/java/com/Kcompany/Kboard/controller/ImageBoardController.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/board/freeBoard/correctError.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/board/imageBoard/correctError.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/join.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/memLoginOK.jsp=UTF-8

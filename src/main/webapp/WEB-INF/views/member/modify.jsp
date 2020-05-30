@@ -27,6 +27,13 @@
 		<div class="row">
 			<div class="col-sm-3"></div>
 				<div class="col-sm-6">
+					<div class="text-right">
+						<form>
+							<button onclick="location.href='memRemoveForm'" type="button" class="btn btn-info"> 회원삭제 </button>
+							<button onclick="location.href='memLogout'" type="button" class="btn btn-danger"> 로그아웃 </button>
+						</form>
+					</div><br/><br/>
+					
 					<form:form action="${cp}/memModify" method="post" modelAttribute="correctMember">
 						<!-- 수정페이지에서는 checkId를 true값으로 념겨주어야 유효성검사를 피할 수 있다. -->
 						<form:hidden path="checkId" value="true"/>
@@ -72,15 +79,9 @@
 						<form:errors path="memPhone" style="color:red"/>
 						
 						<form:button class="btn btn-primary btn-block">회원정보 수정</form:button>
-						<input onclick="location.href='<%=cp%>/'" type="button" class="btn btn-info btn-block" value="뒤로가기"/>
+						<input onclick="location.href='openList'" type="button" class="btn btn-info btn-block" value="뒤로가기"/>
 					</form:form>
 					
-					<!-- 로그인 옵션 --><br/>
-					<div id="loginOption">
-						<a href="#">아이디 찾기</a>
-						<span class="bar">|</span>
-						<a href="#">비밀번호 찾기</a>
-					</div>
 				</div>
 			<div class="col-sm-3"></div>
 		</div>

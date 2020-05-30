@@ -1,47 +1,60 @@
 package com.Kcompany.Kboard.common.paging;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReplyPaging {
 	
 	@Autowired
-	ReplyPageCriteria pc;
+	private ReplyPageCriteria pc;
 	
+	// 총 게시물의 수
 	private int totalCount;
-	private int startNum;    
-	private int endNum;      
-	private boolean prev;
-	private boolean next;
-	private int displayPageNum = 5;
+	// 페이지 리모컨의 시작 정수
+	private int startNum;
+	// 페이지 리모컨의 끝 정수
+	private int endNum;
 	private int tempEndPage;
+	// 페이지의 이전 버튼
+	private boolean prev;
+	// 페이지의 다음 버튼
+	private boolean next;
+	// 게시글 표출 수(5개로 고정)
+	private int displayPageNum = 5;
+	       
 	
 	
-	
+	// 페이지의 리모컨의 시작과 끝,이전버튼과 다음버튼을 계산하는 함수
+	// 현재 페이지가 1~10이면 endNum은 5, 현재 페이지가 11~20이면 endNum은 10 ...
+	// endNum이 5이면 startNum은 1, endNum이 10이면 startNum은 10 ...
 	public void calcData() {
 		
 		endNum = (int) (Math.ceil(pc.getPage() / (double) displayPageNum) * displayPageNum);
 		startNum = (endNum - displayPageNum) + 1;
+		
+		// 게시물 갯수에 맞추어서 endNum 조정
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) pc.getPerPageNum()));
 		this.tempEndPage = tempEndPage;
-
 		if (endNum > tempEndPage) {
 			endNum = tempEndPage;
 		}
 
-		
+		// startNum이 1이면 이전버튼이 없음(false)
 		prev = startNum == 1 ? false : true;
+		// endNum이 게시물을 표현할 마지막 페이지이면 다음버튼이 없음(false)
 		next = endNum * pc.getPerPageNum() >= totalCount ? false : true;
 	}
-	
 	public final ReplyPageCriteria getPc() {
 		return pc;
 	}
-	public final void setPaging(ReplyPageCriteria pc) {
+	public final void setPage(ReplyPageCriteria pc) {
 		this.pc = pc;
 	}
 	public final int getTotalCount() {
 		return totalCount;
 	}
+	// 총 게시물의 수를 주입받으면 각 프로퍼티에 들어갈 값을 계산함
 	public final void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 		calcData();
@@ -82,8 +95,5 @@ public class ReplyPaging {
 	public final void setTempEndPage(int tempEndPage) {
 		this.tempEndPage = tempEndPage;
 	}
-
-	
-	
 	
 }

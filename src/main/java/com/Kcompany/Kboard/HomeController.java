@@ -1,27 +1,18 @@
 package com.Kcompany.Kboard;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+	// 클래스패스를 cp라는 이름으로 반환함으로써 어디서든 사용할 수 있다.
 	@ModelAttribute("cp")
 	public String classpath(HttpServletRequest request) {
 			
@@ -29,14 +20,11 @@ public class HomeController {
 		return cp;
 	}
 	
+	// home
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		String formattedDate = dateFormat.format(date);
-		model.addAttribute("serverTime", formattedDate );
+	public String home(HttpServletRequest request) {
+		// 실제 이클립스 상의 배포위치
+		System.out.println(request.getServletContext().getRealPath("/"));
 		
 		return "home";
 	}

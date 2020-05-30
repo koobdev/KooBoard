@@ -18,12 +18,23 @@
 
 <body>
 	<div class="container-fluid text-center">
-		<h2> 회원정보수정 </h2><br/>
+		<h2> 회원삭제 </h2><br/>
 	</div>
 	<div class="container-fluid text-center">
 		<div id="loginWrap" class="row">
 			<div class="col-sm-3"></div>
 				<div class="col-sm-6">
+					<!-- 상단 메뉴버튼 -->
+					<div class="text-right">
+						<form action="${cp}/memModifyForm" method="post" style="display: inline">
+					 		<input type="hidden" id="memId" name="memId" value="${member.memId}"/>
+					 		<button type="submit" class="btn btn-warning">회원정보 수정</button>
+				 		</form>
+						<form style="display: inline">
+							<button onclick="location.href='memLogout'" type="button" class="btn btn-danger"> 로그아웃 </button>
+						</form>
+					</div><br/><br/>
+					
 					<!-- 로그인 폼-->
 					<!-- ajax로 form 제출시 action 경로 생략 -->
 					<form id="remove" action="${cp}/memRemove" method="post">
@@ -46,15 +57,9 @@
 							<input id="memPw" type="password" class="form-control" name="memPw" placeholder="비밀번호를 입력하세요.">
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">로그인</button>
-						<button onclick="location.href='<%=cp%>/'" type="button" class="btn btn-info btn-block">뒤로가기</button>
+						<button onclick="location.href='openList'" type="button" class="btn btn-info btn-block">뒤로가기</button>
 					</form>
 					
-					<!-- 로그인 옵션 --><br/>
-					<div id="loginOption">
-						<a href="#">아이디 찾기</a>
-						<span class="bar">|</span>
-						<a href="#">비밀번호 찾기</a>
-					</div>
 				</div>
 			<div class="col-sm-3"></div>
 		</div>

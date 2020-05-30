@@ -7,7 +7,7 @@ import com.Kcompany.Kboard.mapper.MemberMapper;
 import com.Kcompany.Kboard.vo.MemberVO;
 
 @Repository
-public class MemberDAO implements IMemberDAO{
+public class MemberDAO {
 
 	@Autowired
 	MemberMapper memMapper;
