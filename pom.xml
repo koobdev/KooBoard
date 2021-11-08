@@ -15,14 +15,14 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<log4j-version>1.2.15</log4j-version>
 		<javax.inject-version>1</javax.inject-version>
-		<junit-version>4.7</junit-version>
-		<org.mybatis-version>3.5.4</org.mybatis-version>
+		<junit-version>4.13.1</junit-version>
+		<org.mybatis-version>3.5.6</org.mybatis-version>
 		<org.mybatis-spring-version>2.0.4</org.mybatis-spring-version>
 		<org.springframework-version>5.2.5.RELEASE</org.springframework-version>
 		<mysql-version>8.0.18</mysql-version>
 		<org.apache.commons-version>2.7.0</org.apache.commons-version>
 		<javax.validation-version>2.0.1.Final</javax.validation-version>
-		<org.hibernate.validator-version>6.1.4.Final</org.hibernate.validator-version>
+		<org.hibernate.validator-version>6.1.5.Final</org.hibernate.validator-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
